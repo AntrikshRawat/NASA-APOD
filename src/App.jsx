@@ -8,11 +8,17 @@ export default function App() {
   const[Data,setData] = useState([]);
   const[loading,setLoading]= useState(true);
   const[error,setError] = useState(false);
-  const[arrange,setArrange] = useState(false);
+  const[arrange,setArrange] = useState(true);
   const today = new Date().toISOString().split("T")[0];
   const [startDate, setStartDate] = useState(today);
   const [endDate, setEndDate] = useState(today);
   const api = import.meta.env.VITE_API_KEY;
+  function setDate(days){
+    let currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - days);
+    currentDate = currentDate.toISOString().split("T")[0];
+    setStartDate(currentDate);
+  }
   useEffect(()=>{
     async function getImages() {
       try{
@@ -63,6 +69,12 @@ export default function App() {
           />
         </div>
       </div>
+      <span className='p-2 space-x-3 flex flex-wrap'>
+      <button className='bg-gray-600 mt-5 p-2 rounded-md hover:bg-gray-700 active:scale-105 transition-transform' onClick={()=>{window.location.reload()}}>APOT</button>
+        <button className='bg-gray-600 mt-5 p-2 rounded-md hover:bg-gray-700 active:scale-105 transition-transform' onClick={()=>{setDate(10)}}>Last 10 Days</button>
+        <button className='bg-gray-600 mt-5 p-2 rounded-md hover:bg-gray-700 active:scale-105 transition-transform' onClick={()=>{setDate(15)}}>Last 15 Days</button>
+        <button className='bg-gray-600 mt-5 p-2 rounded-md hover:bg-gray-700 active:scale-105 transition-transform' onClick={()=>{setDate(30)}}>Last 30 Days</button>
+      </span>
       <p className='flex items-center my-2'>Arrange By Date <LuArrowDownUp onClick={()=>{setArrange(!arrange)}} className='mx-2'/></p> 
     </div>
       {error && <h1 className='text-xl text-center'>Some Error Found</h1>}
