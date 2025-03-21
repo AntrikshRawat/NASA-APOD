@@ -16,6 +16,7 @@ export default function App() {
   useEffect(()=>{
     async function getImages() {
       try{
+        setLoading(true);
         const {data} = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${api}&start_date=${startDate}&end_date=${endDate}`);
       setData(arrange?data:data.reverse());
     }catch(e){
@@ -62,7 +63,7 @@ export default function App() {
           />
         </div>
       </div>
-      <p className='flex items-center'>Arrange By Date <LuArrowDownUp onClick={()=>{setArrange(!arrange)}} className='mx-2'/></p> 
+      <p className='flex items-center my-2'>Arrange By Date <LuArrowDownUp onClick={()=>{setArrange(!arrange)}} className='mx-2'/></p> 
     </div>
       {error && <h1 className='text-xl text-center'>Some Error Found</h1>}
       {loading && <Loader/>}
