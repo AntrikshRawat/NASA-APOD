@@ -22,17 +22,19 @@ export default function App() {
   useEffect(()=>{
     async function getImages() {
       try{
+        setError(false);
         setLoading(true);
         const {data} = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${api}&start_date=${startDate}&end_date=${endDate}`);
       setData(arrange?data:data.reverse());
     }catch(e){
       setError(true);
+      console.log(e);
     }finally{
       setLoading(false);
     }
     }
     getImages();
-  },[startDate,endDate,arrange])
+  },[startDate,endDate,arrange,api])
   return (
     <div className='min-h-lvh text-gray-400 bg-gray-900 body-font'>
       <h1 className='text-3xl text-center p-4 text-white'>NASA -  Astronomy Picture of the Day</h1>
@@ -87,6 +89,7 @@ export default function App() {
         date={item.date}
         imageUrl = {item.url}
         hdimageUrl={item.hdurl}
+        mediaType={item.media_type}
         title= {item.title}
         description = {item.explanation}
         />
