@@ -28,9 +28,6 @@ export default function Loader() {
      <Layoat/>
      <Layoat/>
      <Layoat/>
-     <Layoat/>
-     <Layoat/>
-     <Layoat/>
     </div>
   </div>
 </section>

@@ -22,6 +22,7 @@ export default function App() {
   useEffect(()=>{
     async function getImages() {
       try{
+        setData([]);
         setError(false);
         setLoading(true);
         const {data} = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${api}&start_date=${startDate}&end_date=${endDate}`);
@@ -82,10 +83,10 @@ export default function App() {
       {error && <h1 className='text-xl text-center'>Some Error Found</h1>}
       {loading && <Loader/>}
       <div className="container px-5 mx-auto">
-    <div className="flex flex-wrap -m-4"> 
+  <div className={`grid gap-4 ${Data.length === 1 ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-3'}`}>
     {!loading && Data.map((item)=>(
         <CardForImage
-        key= {Math.random()}
+        key= {Math.random()*Math.random()}
         date={item.date}
         imageUrl = {item.url}
         hdimageUrl={item.hdurl}
